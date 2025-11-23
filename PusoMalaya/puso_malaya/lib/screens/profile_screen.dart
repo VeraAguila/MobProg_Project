@@ -30,44 +30,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 1.0,
-                horizontal: 15.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Welcome back, Vera!',
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontSize: 25,
-                    ),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Edit Profile",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        SizedBox(width: 20),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        SizedBox(width: 20),
+                        Text(
+                          "Morgan",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 20),
+                        Text(
+                          "@morgan123",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                  ],
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 1.0,
-                horizontal: 15.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Review film you’ve watched...',
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
 
             //Movies You Might Like
             Padding(
@@ -79,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Latest',
+                    'Favorites',
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(),
                   ),
                 ],
@@ -106,8 +118,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
 
             SizedBox(height: 50),
-
-            
           ],
         ),
       ),
