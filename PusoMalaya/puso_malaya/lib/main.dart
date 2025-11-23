@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:puso_malaya/login/login_screen.dart';
 
-Color defaultColor = const Color.fromARGB(255, 69, 105, 28);
+Color defaultColor = const Color.fromARGB(255, 14, 62, 14);
 var lightScheme = ColorScheme.fromSeed(
   seedColor: defaultColor,
 );

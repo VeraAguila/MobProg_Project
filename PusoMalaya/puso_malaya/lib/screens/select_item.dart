@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puso_malaya/screens/add_rating_screen.dart';
 
 class SelectItem extends StatefulWidget {
   const SelectItem({super.key});
@@ -103,7 +104,14 @@ class _SelectItemState extends State<SelectItem> {
                           ),
                           SizedBox(width: 10),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AddRatingScreen(),
+                                ),
+                              );
+                            },
                             icon: Icon(Icons.add),
                             label: Text('Rate'),
                           ),
