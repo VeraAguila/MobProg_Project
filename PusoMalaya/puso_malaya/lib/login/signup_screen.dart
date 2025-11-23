@@ -83,6 +83,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                     context,
                                   ).textTheme.titleMedium!.copyWith(
                                     color: Colors.white,
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
                                   ),
                             ),
                             SizedBox(

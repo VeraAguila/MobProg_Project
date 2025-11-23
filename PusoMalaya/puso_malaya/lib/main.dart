@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:puso_malaya/login/login_screen.dart';
 
-Color defaultColor = Colors.lightGreen;
+Color defaultColor = const Color.fromARGB(255, 69, 105, 28);
 var lightScheme = ColorScheme.fromSeed(
   seedColor: defaultColor,
 );
@@ -29,7 +29,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode themeMode = ThemeMode.light;
+  ThemeMode themeMode = ThemeMode.dark;
 
   void switchTheme() {
     setState(() {

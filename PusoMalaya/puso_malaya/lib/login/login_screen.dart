@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:puso_malaya/login/signup_screen.dart';
+import 'package:puso_malaya/screens/home_screen.dart';
+import 'package:puso_malaya/screens/nav_root.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -88,6 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                   ).textTheme.titleMedium!.copyWith(
                                     color: Colors.white,
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
                                   ),
                             ),
                             SizedBox(
@@ -167,7 +171,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NavRoot(),
+                                    ),
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.symmetric(
                                     vertical: 12,
