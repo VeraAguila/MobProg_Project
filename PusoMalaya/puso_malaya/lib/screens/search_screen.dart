@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
-
-import 'package:puso_malaya/screens/select_item.dart';
+import 'package:puso_malaya/widgets/card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -39,14 +37,24 @@ class _SearchScreenState extends State<SearchScreen> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  // color: Colors.grey[200],
+                  gradient: LinearGradient(
+                      colors: [
+                        Color(0x00FFFFFF).withOpacity(0.5),
+                        Color(0x00FFFFFF).withOpacity(0.5),
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     hintText: "Search",
+                    hintStyle: TextStyle(color: Colors.white),
                     border: InputBorder.none,
-                    icon: Icon(Icons.search),
+                    icon: Icon(Icons.search, color: Colors.white,),
                   ),
                 ),
               ),
@@ -55,27 +63,29 @@ class _SearchScreenState extends State<SearchScreen> {
                 'Latest',
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   fontSize: 22,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
-              height: 200,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: items.map((item) {
-                    return _buildCard(
-                      context,
-                      title: item['title']!,
-                      imageWidget: Image.asset(
-                        'assets/images/movie1.png',
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  }).toList(),
+                height: 300,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 0.0,
+                      vertical: 8.0,
+                    ),
+                    child: Row(
+                      children: items.map((item) {
+                        return buildCard(
+                          title: item['title']!,
+                          imageWidget: item['imagepath']!,
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
               ),
-            ),
             ],
           ),
         ),
@@ -83,61 +93,3 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
-Widget _buildCard(
-  BuildContext context, {
-  required String title,
-  required Widget imageWidget,
-}) {
-  void openItemModal() {
-    showModalBottomSheet(
-      context: context,
-      builder: (ctx) => SelectItem(),
-    );
-  }
-  return Padding(
-    padding: EdgeInsets.only(
-      left: 16.0,
-      right: 8.0,
-    ),
-    child: Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Tapped')));
-          openItemModal();
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 5,
-          children: [
-            SizedBox(
-              height: 100,
-              width: 160,
-              child: imageWidget,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 8.0,
-              ),
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-

@@ -1,54 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:puso_malaya/screens/review_select.dart';
 
-class RatingsScreen extends StatefulWidget {
-  const RatingsScreen({super.key});
+class ReviewScreen extends StatefulWidget {
+  const ReviewScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _RatingScreenState();
+    return _ReviewScreenState();
   }
 }
 
-class _RatingScreenState extends State<RatingsScreen> {
+class _ReviewScreenState extends State<ReviewScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> items = [
       {'name': 'Marga', 'rate': '3.7', 'content': 'asdacsacascasc'},
 
-      {'name': 'leanne', 'rate': '4.3', 'content': 'asdacsacascasc'},
+      
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Reviews',
+          'Review',
         ),
         actions: [
-          PopupMenuButton<String>(
-            icon: Icon(
-              Icons.filter_list_rounded,
-              size: 30,
-            ),
-            onSelected: (value) {
-              if (value == 'newest') {
-                print('Sort by newest');
-              } else if (value == 'descending') {
-                print('Sort descending');
-              }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'newest',
-                child: Text('Newest'),
-              ),
-              PopupMenuItem(
-                value: 'descending',
-                child: Text('Descending'),
-              ),
-            ],
-          ),
+          // PopupMenuButton<String>(
+          //   icon: Icon(
+          //     Icons.filter_list_rounded,
+          //     size: 30,
+          //   ),
+          //   onSelected: (value) {
+          //     if (value == 'newest') {
+          //       print('Sort by newest');
+          //     } else if (value == 'descending') {
+          //       print('Sort descending');
+          //     }
+          //   },
+          //   itemBuilder: (context) => [
+          //     PopupMenuItem(
+          //       value: 'newest',
+          //       child: Text('Newest'),
+          //     ),
+          //     PopupMenuItem(
+          //       value: 'descending',
+          //       child: Text('Descending'),
+          //     ),
+          //   ],
+          // ),
           SizedBox(width: 15),
         ],
       ),
@@ -124,12 +123,10 @@ Widget _buildCard(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          Navigator.push(
+          ScaffoldMessenger.of(
             context,
-            MaterialPageRoute(
-              builder: (context) => ReviewScreen(),
-            ),
-          );
+          ).showSnackBar(SnackBar(content: Text('Tapped')));
+          //penItemModal();
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

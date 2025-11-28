@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:puso_malaya/screens/favorite_screen.dart';
 import 'package:puso_malaya/screens/home_screen.dart';
 import 'package:puso_malaya/screens/profile_screen.dart';
 import 'package:puso_malaya/screens/search_screen.dart';
 
 class NavRoot extends StatefulWidget {
-  const NavRoot({super.key});
+  const NavRoot(
+    this.successfulRegistration,
+    this.successMessage, {
+    super.key,
+    required this.goToHome,
+    required this.goToRegister,
+    required this.currentUser,
+    required this.logout,
+  });
+  
+  final bool successfulRegistration;
+  final String successMessage;
+  final void Function(BaseAppUser) goToHome;
+  // final void Function() goToHome;
+  final void Function() goToRegister;
+  final BaseAppUser currentUser;
+  final void Function() logout;
 
   @override
   State<StatefulWidget> createState() {
@@ -16,11 +33,14 @@ class NavRoot extends StatefulWidget {
 class _NavRootState extends State<NavRoot> {
   int selectedIndex = 0;
 
-  final List<Widget> pages = [
+  late final List<Widget> pages = [
     HomeScreen(),
     SearchScreen(),
     FavoriteScreen(),
-    ProfileScreen(),
+    ProfileScreen(
+      // currentUser: widget.currentUser,
+      logout: widget.logout,
+    ),
   ];
 
   void onItemTapped(int index) {
@@ -38,7 +58,7 @@ class _NavRootState extends State<NavRoot> {
         currentIndex: selectedIndex,
         onTap: onItemTapped,
 
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color(0xFFFFEB3B),
         unselectedItemColor: Colors.white,
 
         items: [

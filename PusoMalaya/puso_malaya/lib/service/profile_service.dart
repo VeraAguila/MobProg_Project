@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-var apiUrl = '';
+var apiUrl = 'h2qfixb5w7.execute-api.ap-southeast-2.amazonaws.com';
 var stage = '/prod';
 
 class LoginService {
@@ -27,7 +28,7 @@ class LoginService {
       return null;
     }
 
-    final Map<String, dyanamic>? responseBody = jsonDecode(
+    final Map<String, dynamic>? responseBody = jsonDecode(
       response.body,
     );
 
@@ -36,7 +37,7 @@ class LoginService {
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text(
-            'Login Failed.',
+            'Login failed.',
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -61,16 +62,15 @@ class LoginService {
       return null;
     }
 
-    BaseAppUser loginUser = BaseAppUser.fromJson(responseBody['data']);
+    BaseAppUser loginUser = BaseAppUser.fromJson(responseBody!['data']);
     return loginUser;
   }
 
-  Futur<String?> register({
+  Future<String?> register({
     required BuildContext context,
     required String username,
     required String password,
-    required String firstName,
-    required String lastName,
+    required String email,
   }) async {
     final uri = Uri.https(
       apiUrl,
@@ -80,8 +80,7 @@ class LoginService {
     BaseAppUser newUser = BaseAppUser(
       username: username,
       password: password,
-      firstName: firstName,
-      lastName: lastName,
+      email: email,
     );
 
     final response = await http.post(
@@ -91,5 +90,45 @@ class LoginService {
       },
       body: json.encode(newUser.toJson()),
     );
+
+    if (!context.mounted) {
+      return null;
+    }
+
+    final Map<String, dynamic>? responseBody = jsonDecode(
+      response.body,
+    );
+
+    if (response.statusCode >= 400) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(
+            'Registration failed.',
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            responseBody != null
+                ? responseBody['message']
+                : 'Internal Server Error',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+
+      return null;
+    }
+
+    return responseBody!['message'];
   }
 }
