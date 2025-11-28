@@ -34,8 +34,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   ThemeMode themeMode = ThemeMode.dark;
-  BaseAppUser? loginUser;
-  // var loginUser = '';
+  // BaseAppUser? loginUser;
+  var loginUser = '';
   var isNewUser = false;
   var successfulRegistration = false;
   String successMessage = '';
@@ -51,23 +51,23 @@ class _MyAppState extends State<MyApp> {
   }
   void logout() {
     setState(() {
-      loginUser = null;
-      // loginUser = '';
+      // loginUser = null;
+      loginUser = '';
       successfulRegistration = false;
     });
   }
 
-  void goToHome(BaseAppUser currentUser) {
-    setState(() {
-      loginUser = currentUser;
-    });
-  }
-
-  // void goToHome() {
+  // void goToHome(BaseAppUser currentUser) {
   //   setState(() {
-  //     loginUser = 'yes';
+  //     loginUser = currentUser;
   //   });
   // }
+
+  void goToHome() {
+    setState(() {
+      loginUser = 'yes';
+    });
+  }
 
   void goToRegister() {
     setState(() {
@@ -99,14 +99,14 @@ class _MyAppState extends State<MyApp> {
       goToRegister: goToRegister,
     );
 
-    if (loginUser != null) {
-    // if (loginUser != '') {
+    // if (loginUser != null) {
+    if (loginUser != '') {
       content = NavRoot(
         successfulRegistration,
         successMessage,
         goToHome: goToHome,
         goToRegister: goToRegister,
-        currentUser: loginUser!,
+        // currentUser: loginUser!,
         logout: logout,
       );
     } else if (isNewUser) {

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:puso_malaya/model/base_app_movie.dart';
 import 'package:puso_malaya/screens/select_item.dart';
 
 class buildCard extends StatelessWidget {
-  final String title;
-  final String imageWidget;
+  // final String title;
+  // final String imageWidget;
+  final BaseAppMovie item;
 
   const buildCard({
-    required this.title,
-    required this.imageWidget,
+    // required this.title,
+    // required this.imageWidget,
+    required this.item,
   });
 
   @override
@@ -15,7 +18,7 @@ class buildCard extends StatelessWidget {
     void openItemModal() {
       showModalBottomSheet(
         context: context,
-        builder: (ctx) => SelectItem(),
+        builder: (ctx) => SelectItem(item: item),
       );
     }
 
@@ -24,7 +27,7 @@ class buildCard extends StatelessWidget {
         // openItemModal();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SelectItem())
+          MaterialPageRoute(builder: (context) => SelectItem(item: item))
         );
       },
       child: Container(
@@ -36,7 +39,7 @@ class buildCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(12),
               child: Image.network(
-                imageWidget,
+                item.s3Image!,
                 height: 200,
                 width: 150,
                 fit: BoxFit.cover,
@@ -48,7 +51,7 @@ class buildCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                title,
+                item.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(

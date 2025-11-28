@@ -4,7 +4,7 @@ import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-var apiUrl = 'cfh9odail.execute-api.ap-southeast-2.amazonaws.com';
+var apiUrl = 'ccfh9odail.execute-api.ap-southeast-2.amazonaws.com';
 var stage = '/dev';
 
 class LoginService {

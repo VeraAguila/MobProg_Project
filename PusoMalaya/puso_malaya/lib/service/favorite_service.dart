@@ -1,24 +1,24 @@
 import 'dart:convert';
 
+import 'package:puso_malaya/model/base_app_favorites.dart';
+import 'package:puso_malaya/model/base_app_movie.dart';
 import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-var apiUrl = 'h2qfixb5w7.execute-api.ap-southeast-2.amazonaws.com';
-var stage = '/prod';
+var apiUrl = 'ccfh9odail.execute-api.ap-southeast-2.amazonaws.com';
+var stage = '/dev';
 
-class ProfileService {
-  Future<BaseAppUser?> loginRequest({
+class FavoriteService {
+  Future<List<BaseAppFavorite>?> viewFavorites({
     required BuildContext context,
-    required String username,
-    required String password,
+    required String userId,
   }) async {
     final uri = Uri.https(
       apiUrl,
-      '$stage/login',
+      '$stage/favorites',
       {
-        'username': username.trim(),
-        'password': password.trim(),
+        'userId': userId.trim(),
       },
     );
 
@@ -37,7 +37,7 @@ class ProfileService {
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text(
-            'Login failed.',
+            'Failed to fetch movies.',
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -62,7 +62,9 @@ class ProfileService {
       return null;
     }
 
-    BaseAppUser loginUser = BaseAppUser.fromJson(responseBody!['data']);
-    return loginUser;
+    final Map<String, dynamic> jsonList = json.decode(response.body);
+    final List<dynamic> moviesJson = jsonList["items"];
+
+    return moviesJson.map((item) => BaseAppFavorite.fromJson(item)).toList();
   }
 }

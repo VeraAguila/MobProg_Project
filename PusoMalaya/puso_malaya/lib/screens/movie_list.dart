@@ -100,8 +100,7 @@ class MovieList extends StatelessWidget {
                   child: Row(
                     children: inventoryList.map((item) {
                       return buildCard(
-                        title: item.title,
-                        imageWidget: item.s3Image!,
+                        item: item,
                       );
                     }).toList(),
                   ),
@@ -139,9 +138,7 @@ class MovieList extends StatelessWidget {
                   child: Row(
                     children: inventoryList.map((item) {
                       return buildCardRecently(
-                        title: item.title,
-                        imageWidget: item.s3Image!,
-                        date: item.releaseDate,
+                        item: item,
                       );
                     }).toList(),
                   ),
@@ -179,9 +176,7 @@ class MovieList extends StatelessWidget {
                   child: Row(
                     children: inventoryList.map((item) {
                       return buildCardRanked(
-                        title: item.title,
-                        imageWidget: item.s3Image!,
-                        rate: item.averageRating!,
+                        item: item,
                       );
                     }).toList(),
                   ),

@@ -1,16 +1,20 @@
 
 import 'package:flutter/material.dart';
+import 'package:puso_malaya/model/base_app_movie.dart';
 import 'package:puso_malaya/screens/select_item.dart';
 
 class buildCardRecently extends StatelessWidget {
-  final String title;
-  final String imageWidget;
-  final String date;
+  // final String title;
+  // final String imageWidget;
+  // final String date;
+
+  final BaseAppMovie item;
 
   const buildCardRecently({
-    required this.title,
-    required this.imageWidget,
-    required this.date,
+    // required this.title,
+    // required this.imageWidget,
+    // required this.date,
+    required this.item,
   });
 
   @override
@@ -18,7 +22,7 @@ class buildCardRecently extends StatelessWidget {
     void openItemModal() {
       showModalBottomSheet(
         context: context,
-        builder: (ctx) => SelectItem(),
+        builder: (ctx) => SelectItem(item: item,),
       );
     }
 
@@ -27,7 +31,7 @@ class buildCardRecently extends StatelessWidget {
         // openItemModal();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SelectItem())
+          MaterialPageRoute(builder: (context) => SelectItem(item: item,))
         );
       },
       child: Container(
@@ -39,7 +43,7 @@ class buildCardRecently extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(12),
               child: Image.network(
-                imageWidget,
+                item.s3Image!,
                 height: 200,
                 width: 150,
                 fit: BoxFit.cover,
@@ -51,7 +55,7 @@ class buildCardRecently extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                title,
+                item.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -62,7 +66,7 @@ class buildCardRecently extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                date,
+                item.releaseDate,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(

@@ -57,8 +57,9 @@ class MovieService {
       return null;
     }
 
-    final List<dynamic> jsonList = json.decode(response.body);
+    final Map<String, dynamic> jsonList = json.decode(response.body);
+    final List<dynamic> moviesJson = jsonList["items"];
 
-    return jsonList.map((item) => BaseAppMovie.fromJson(item)).toList();
+    return moviesJson.map((item) => BaseAppMovie.fromJson(item)).toList();
   }
 }

@@ -12,7 +12,7 @@ class BaseAppMovie {
     required this.cast,
     required this.genres,
     required this.synopsis,
-    this.imdbId,
+    this.imbId,
     this.s3Image,
     this.averageRating,
     this.reviewCount,
@@ -28,13 +28,13 @@ class BaseAppMovie {
     required this.genres,
     required this.synopsis,
     this.s3Image,
-    this.imdbId,
+    this.imbId,
     this.averageRating,
     this.reviewCount,
   });
 
   final String PK;
-  final String SK;
+  final String SK; 
   final String title;
   final String releaseDate;
   final String director;
@@ -42,9 +42,9 @@ class BaseAppMovie {
   final List<String> genres;
   final String synopsis;
   final String? s3Image;
-  final String? imdbId;
+  final String? imbId;
   final String? averageRating;
-  final int? reviewCount;
+  final String? reviewCount;
 
   Map<String, dynamic> toJson() {
     return {
@@ -57,7 +57,7 @@ class BaseAppMovie {
       's3Image': s3Image,
       'genres': genres,
       'synopsis': synopsis,
-      'imdbId': imdbId,
+      'imbId': imbId,
       'averageRating': averageRating,
       'reviewCount': reviewCount,
     };
@@ -74,7 +74,7 @@ class BaseAppMovie {
       genres: List<String>.from(json['genres'] ?? []),
       s3Image: json['s3Image'] ?? '',
       synopsis: json['synopsis'] ?? '',
-      imdbId: json['imdbId'],
+      imbId: json['imbId'],
       averageRating: json['averageRating'],
       reviewCount: json['reviewCount'],
     );

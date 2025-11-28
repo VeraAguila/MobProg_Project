@@ -75,14 +75,14 @@ class _SearchScreenState extends State<SearchScreen> {
                       horizontal: 0.0,
                       vertical: 8.0,
                     ),
-                    child: Row(
-                      children: items.map((item) {
-                        return buildCard(
-                          title: item['title']!,
-                          imageWidget: item['imagepath']!,
-                        );
-                      }).toList(),
-                    ),
+                    // child: Row(
+                    //   children: items.map((item) {
+                    //     return buildCard(
+                    //       item: item,
+                    //     );
+                    //   }).toList(),
+                    // ),
+                    child: Text('data'),
                   ),
                 ),
               ),

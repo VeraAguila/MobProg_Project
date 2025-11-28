@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:puso_malaya/model/base_app_movie.dart';
 import 'package:puso_malaya/screens/add_rating_screen.dart';
 import 'package:puso_malaya/screens/ratings_screen.dart';
 import 'package:puso_malaya/screens/review_select.dart';
 
 class SelectItem extends StatefulWidget {
-  const SelectItem({super.key});
+  const SelectItem({super.key, required this.item});
+
+  final BaseAppMovie item;
 
   @override
   State<StatefulWidget> createState() {
@@ -13,7 +16,7 @@ class SelectItem extends StatefulWidget {
   }
 }
 
-class _SelectItemState extends State<SelectItem> {
+class _SelectItemState extends State<SelectItem> {  
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> items = [
@@ -31,106 +34,108 @@ class _SelectItemState extends State<SelectItem> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'assets/images/movie1.png',
-                    height: 172,
+                  SizedBox(width: 5),
+                  Image.network(
+                    widget.item.s3Image!,
+                    height: 180,
+                    width: 150,
                     fit: BoxFit.contain,
                   ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Mango',
-                          style: Theme.of(context).textTheme.titleLarge,
+                  // SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.item.title,
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontSize:22,
                         ),
-                        SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.movie),
-                            Text(
-                              ' Directed by ',
-                              style:
-                                  Theme.of(
-                                    context,
-                                  ).textTheme.titleSmall!.copyWith(
-                                    color: Colors.grey,
-                                  ),
-                            ),
-                            Text(
-                              'Alfonso Cuaron',
-                              style: Theme.of(context).textTheme.titleSmall,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.movie),
-                            Text(
-                              ' Genre ',
-                              style:
-                                  Theme.of(
-                                    context,
-                                  ).textTheme.titleSmall!.copyWith(
-                                    color: Colors.grey,
-                                  ),
-                            ),
-                            Text(
-                              'Fiction',
-                              style: Theme.of(context).textTheme.titleSmall,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.timer),
-                            Text(
-                              ' 2 hr 21 min',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.people),
-                            Text(
-                              ' Casts ',
-                              style:
-                                  Theme.of(
-                                    context,
-                                  ).textTheme.titleSmall!.copyWith(
-                                    color: Colors.grey,
-                                  ),
-                            ),
-                            Text(
-                              'Minions',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.movie),
+                          Text(
+                            ' Directed by ',
+                            style:
+                                Theme.of(
+                                  context,
+                                ).textTheme.titleSmall!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              widget.item.director,
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                fontSize: 12,
+                              ),
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.titleSmall,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.movie),
+                          Text(
+                            ' Genre ',
+                            style:
+                                Theme.of(
+                                  context,
+                                ).textTheme.titleSmall!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              widget.item.genres.join(", "),
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                fontSize: 12,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Icons.people),
+                          Text(
+                            ' Casts ',
+                            style:
+                                Theme.of(
+                                  context,
+                                ).textTheme.titleSmall!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                          ),
+                          Text(
+                            widget.item.cast.join(", "),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -139,7 +144,7 @@ class _SelectItemState extends State<SelectItem> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: (){},
                     icon: Icon(Icons.favorite),
                     label: Text('Favorite'),
                   ),
@@ -163,7 +168,7 @@ class _SelectItemState extends State<SelectItem> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'asdasdasdasd',
+                    widget.item.synopsis,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ],

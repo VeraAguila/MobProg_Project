@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:puso_malaya/model/base_app_favorites.dart';
+import 'package:puso_malaya/model/base_app_review.dart';
 import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:puso_malaya/screens/review_select.dart';
+import 'package:puso_malaya/service/favorite_service.dart';
+import 'package:puso_malaya/service/review_service.dart';
 import 'package:puso_malaya/widgets/card_favorites.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -21,10 +25,58 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  var isLoading = false;
+  final favoriteService = FavoriteService();
+  List<BaseAppFavorite> favoriteList = [];
+  final reviewScreen = ReviewService();
+  List<BaseAppReview> reviewList = [];
+  var userId = 'U#37893c14-7d9b-404d-95db-fcc24dbb657d';
+
+  @override
+  void initState() {
+    super.initState();
+    loadFavorites();
+    //loadReviews();
+  }
+
+  void loadFavorites() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    var tempMovie = await favoriteService.viewFavorites(
+      context: context,
+      userId: userId,
+    );
+
+    await Future.delayed(Durations.medium1);
+    setState(() {
+      favoriteList = tempMovie!;
+      isLoading = false;
+    });
+  }
+
+  void loadReviews() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    var tempReview = await reviewScreen.getReview(
+      context: context,
+    );
+
+    await Future.delayed(Durations.medium1);
+    setState(() {
+      reviewList = tempReview!;
+      isLoading = false;
+    });
+  }
+
   Future<void> proceedLogout() async {
     await Future.delayed(Durations.medium1);
     widget.logout();
   }
+
 
   void toLogout() {
     showDialog(
@@ -316,11 +368,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: items.map((item) {
-                        return buildCardFavorites(
-                          imageWidget: item['imagepath']!,
-                        );
-                      }).toList(),
+                      // children: favoriteList.map((item) {
+                      //   return buildCardFavorites(
+                      //     item: item,
+                      //   );
+                      // }).toList(),
+                      children: [Text('data')],
                     ),
                   ),
                 ),
