@@ -44,6 +44,7 @@ class _AddRatingScreenState extends State<AddRatingScreen> {
       setState(() {
         isSending = false;
       });
+      
     }
   }
   @override

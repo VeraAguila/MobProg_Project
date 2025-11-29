@@ -85,6 +85,9 @@ class ReviewService {
       movieId: movieId,
       content: content,
       rating: rating,
+      isEdited: false,
+      spoilerWarning: false,
+      likeCount: '0',
     );
 
     final response = await http.post(

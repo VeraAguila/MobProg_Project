@@ -11,7 +11,7 @@ class BaseAppReview {
     this.likeCount,
     this.spoilerWarning,
     this.isEdited,
-  }) : SK = 'U#${uid.v4()}';  
+  }) : SK = 'R#${uid.v4()}';  
 
   BaseAppReview.fromData({
     required this.SK,
@@ -36,7 +36,7 @@ class BaseAppReview {
   Map<String, dynamic> toJson() {
     return {
       'SK': SK,
-      'useId': userId,
+      'userId': userId,
       'movieId': movieId,
       'content': content,
       'rating': rating,
@@ -53,9 +53,9 @@ class BaseAppReview {
       movieId: json['movieId'] ?? '',
       content: json['content'] ?? '',
       rating: json['rating'] ?? '',
-      likeCount: json['likeCount'] ?? '',
-      spoilerWarning: json['spoilerWarning'] ?? '',
-      isEdited: json['isEdited'] ?? '',
+      likeCount: json['likeCount'] ?? '0',
+      spoilerWarning: json['spoilerWarning'] ?? false,
+      isEdited: json['isEdited'] ?? false,  
     );
   }
 }

@@ -317,7 +317,7 @@ Widget _buildCard(
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 10), 
                   Text(
                     content,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
