@@ -84,71 +84,74 @@ class _SelectItemState extends State<SelectItem> {
                     fit: BoxFit.contain,
                   ),
                   // SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.item.title,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize:22,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(Icons.movie),
-                          Text(
-                            ' Directed by ',
-                            style:
-                                Theme.of(
-                                  context,
-                                ).textTheme.titleSmall!.copyWith(
-                                  color: Colors.grey,
-                                ),
+                  SizedBox(
+                    width: 230,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.item.title,
+                          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontSize:22,
                           ),
-                          
-                        ],
-                      ),
-                      Text(
-                           '        ${widget.item.director}',
-                            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              fontSize: 12,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(Icons.movie),
+                            Text(
+                              ' Directed by ',
+                              style:
+                                  Theme.of(
+                                    context,
+                                  ).textTheme.titleSmall!.copyWith(
+                                    color: Colors.grey,
+                                  ),
                             ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(Icons.movie),
-                          Text(
-                            ' Genre ',
-                            style:
-                                Theme.of(
-                                  context,
-                                ).textTheme.titleSmall!.copyWith(
-                                  color: Colors.grey,
-                                ),
-                          ),
-                          
-                        ],
-                      ),
-                      Text(
-                        '        ${widget.item.genres.join(", ")}',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontSize: 12,
+                            
+                          ],
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 10),
-                      
-                      
-                    ],
+                        Text(
+                             '        ${widget.item.director}',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                fontSize: 12,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(Icons.movie),
+                            Text(
+                              ' Genre ',
+                              style:
+                                  Theme.of(
+                                    context,
+                                  ).textTheme.titleSmall!.copyWith(
+                                    color: Colors.grey,
+                                  ),
+                            ),
+                            
+                          ],
+                        ),
+                        Text(
+                          '        ${widget.item.genres.join(", ")}',
+                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            fontSize: 12,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 10),
+                        
+                        
+                      ],
+                    ),
                   ),
                 ],
               ),

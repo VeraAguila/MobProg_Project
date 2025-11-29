@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puso_malaya/model/base_app_favorites.dart';
+import 'package:puso_malaya/model/base_app_movie.dart';
 import 'package:puso_malaya/screens/favorite_list.dart';
 import 'package:puso_malaya/screens/select_item.dart';
 import 'package:puso_malaya/service/favorite_service.dart';
@@ -17,7 +18,7 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   var isLoading = false;
   final favoriteService = FavoriteService();
-  List<BaseAppFavorite> favoriteList = [];
+  List<BaseAppMovie> favoriteList = [];
   var userId = 'U#37893c14-7d9b-404d-95db-fcc24dbb657d';
 
   @override

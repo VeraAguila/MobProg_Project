@@ -6,14 +6,20 @@ import 'package:puso_malaya/widgets/card.dart';
 import 'package:puso_malaya/widgets/card_ranked.dart';
 import 'package:puso_malaya/widgets/card_recently.dart';
 
-class FavoriteList extends StatelessWidget {
+class FavoriteList extends StatefulWidget {
   const FavoriteList({
     super.key,
     required this.favoriteList,
   });
 
-  final List<BaseAppFavorite> favoriteList;
+  final List<BaseAppMovie> favoriteList;
 
+  @override
+  State<FavoriteList> createState() => _FavoriteListState();
+}
+
+class _FavoriteListState extends State<FavoriteList> {
+  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -32,11 +38,11 @@ class FavoriteList extends StatelessWidget {
                   //crossAxisSpacing: 5,
                   //mainAxisSpacing: 5,
                   padding: EdgeInsets.all(10),
-                  children: favoriteList.map((item) {
+                  children: widget.favoriteList.map((item) {
                     return _buildCard(
                       context,
-                      title: item.movieId,
-                      imageWidget: item.movieId,
+                      title: item.title,
+                      imageWidget: item.s3Image!,
                     );
                   }).toList(),
                 ),
@@ -94,7 +100,7 @@ Widget _buildCard(
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(12),
-            child: Image.asset(
+            child: Image.network(
               imageWidget,
               height: 95,
               width: 65,

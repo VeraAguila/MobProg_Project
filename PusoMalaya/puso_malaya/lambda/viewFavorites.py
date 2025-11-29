@@ -20,13 +20,22 @@ def lambda_handler(event, context):
     )
 
     items = response.get('Items', [])
+    movies=[item.get("movieId") for item in items if item.get("movieId") is not None]
 
-    json_ready = json.loads(json.dumps(items, default=str))
+    movies_array=[]
+
+    for movie in movies:
+        response = table.get_item(Key={'PK': 'MOVIE', 'SK': movie})
+        movies_array.append(response.get('Item'))
+
+    json_ready = json.loads(json.dumps(movies_array, default=str))
 
     return {
         'statusCode': 200,
         'headers': {
             'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': 'GET,POST,OPTIONS'
         },
         'body': json.dumps(json_ready)
     }

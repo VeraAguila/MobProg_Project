@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puso_malaya/model/base_app_favorites.dart';
+import 'package:puso_malaya/model/base_app_movie.dart';
 import 'package:puso_malaya/model/base_app_review.dart';
 import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:puso_malaya/screens/review_select.dart';
@@ -27,7 +28,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   var isLoading = false;
   final favoriteService = FavoriteService();
-  List<BaseAppFavorite> favoriteList = [];
+  List<BaseAppMovie> favoriteList = [];
   final reviewScreen = ReviewService();
   List<BaseAppReview> reviewList = [];
   var userId = 'U#37893c14-7d9b-404d-95db-fcc24dbb657d';
@@ -186,27 +187,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Edit Profile",
-                              style: Theme.of(context).textTheme.titleSmall!
-                                  .copyWith(
-                                    color: Colors.grey,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5),
+                      
+                      SizedBox(height:30),
                       Row(
                         children: [
                           SizedBox(width: 10),
                           Text(
-                            "Morgan",
+                            widget.currentUser.username,
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ],
@@ -216,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           SizedBox(width: 10),
                           Text(
-                            "@morgan123",
+                            widget.currentUser.email,
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],

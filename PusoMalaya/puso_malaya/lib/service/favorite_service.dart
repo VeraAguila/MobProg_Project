@@ -10,16 +10,13 @@ var apiUrl = 'ccfh9odail.execute-api.ap-southeast-2.amazonaws.com';
 var stage = '/dev';
 
 class FavoriteService {
-  Future<List<BaseAppFavorite>?> viewFavorites({
+  Future<List<BaseAppMovie>?> viewFavorites({
     required BuildContext context,
     required String userId,
   }) async {
     final uri = Uri.https(
       apiUrl,
-      '$stage/favorites/view_favorites',
-      {
-        'userId': userId.trim(),
-      },
+      '$stage/favorites/view_favorites'
     );
 
     final response = await http.post(
@@ -39,8 +36,6 @@ class FavoriteService {
     final Map<String, dynamic>? responseBody = jsonDecode(
       response.body,
     );
-    final List<Map<String, dynamic>> jsonList = json.decode(response.body);
-
     if (response.statusCode >= 400) {
       showDialog(
         context: context,
@@ -70,8 +65,11 @@ class FavoriteService {
 
       return null;
     }
+    
+    final List<dynamic> jsonList = json.decode(response.body);
+    final List<BaseAppMovie> movies = jsonList.map((item) => BaseAppMovie.fromJson(item as Map<String, dynamic>)).toList();
 
-
-    return jsonList.map((item) => BaseAppFavorite.fromJson(item)).toList();
+    return movies;
+    // return jsonList.map((item) => BaseAppFavorite.fromJson(item)).toList();
   }
 }
