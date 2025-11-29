@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puso_malaya/model/base_app_movie.dart';
+import 'package:puso_malaya/model/base_app_review.dart';
 import 'package:puso_malaya/screens/add_rating_screen.dart';
 import 'package:puso_malaya/screens/ratings_screen.dart';
 import 'package:puso_malaya/screens/review_select.dart';
+import 'package:puso_malaya/service/review_service.dart';
 
 class SelectItem extends StatefulWidget {
   const SelectItem({super.key, required this.item});
@@ -16,7 +18,35 @@ class SelectItem extends StatefulWidget {
   }
 }
 
-class _SelectItemState extends State<SelectItem> {  
+class _SelectItemState extends State<SelectItem> { 
+  bool isFavorite = false;
+  var isLoading = false;
+  final reviewService = ReviewService();
+  List<BaseAppReview> reviewList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadReviews();
+  }
+
+  void loadReviews() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    var tempReview = await reviewService.getReview(
+      context: context,
+      userId: widget.item.SK,
+    );
+
+    await Future.delayed(Durations.medium1);
+    setState(() {
+      reviewList = tempReview!;
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> items = [
@@ -24,6 +54,11 @@ class _SelectItemState extends State<SelectItem> {
 
       {'name': 'leanne', 'rate': '4.3', 'content': 'asdacsacascasc'},
     ];
+    void editFavorite() {
+      setState(() {
+        isFavorite = !isFavorite;
+      });
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -74,18 +109,17 @@ class _SelectItemState extends State<SelectItem> {
                                   color: Colors.grey,
                                 ),
                           ),
-                          Flexible(
-                            child: Text(
-                              widget.item.director,
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                fontSize: 12,
-                              ),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
+                          
                         ],
                       ),
+                      Text(
+                           '        ${widget.item.director}',
+                            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: 12,
+                            ),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -100,24 +134,29 @@ class _SelectItemState extends State<SelectItem> {
                                   color: Colors.grey,
                                 ),
                           ),
-                          Flexible(
-                            child: Text(
-                              widget.item.genres.join(", "),
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                fontSize: 12,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
+                          
                         ],
+                      ),
+                      Text(
+                        '        ${widget.item.genres.join(", ")}',
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: 12,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: 10),
                       
-                      Row(
+                      
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(Icons.people),
+                          SizedBox(width: 15,),
                           Text(
                             ' Casts ',
                             style:
@@ -127,25 +166,25 @@ class _SelectItemState extends State<SelectItem> {
                                   color: Colors.grey,
                                 ),
                           ),
-                          Text(
-                            widget.item.cast.join(", "),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
+                          
                         ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
+                      Text(
+                        '${widget.item.cast.join(", ")}',
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: (){},
-                    icon: Icon(Icons.favorite),
+                    onPressed: editFavorite,
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_outline_rounded,
+                      color: isFavorite ? Colors.red : null,
+                    ),
                     label: Text('Favorite'),
                   ),
                   SizedBox(width: 10),
@@ -164,14 +203,11 @@ class _SelectItemState extends State<SelectItem> {
                 ],
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.item.synopsis,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                ],
+              Text(
+                widget.item.synopsis,
+                style: Theme.of(context).textTheme.titleSmall,
+                maxLines: 10,
+                overflow: TextOverflow.ellipsis,
               ),
               SizedBox(height: 40),
               Row(
@@ -182,27 +218,27 @@ class _SelectItemState extends State<SelectItem> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RatingsScreen(),
-                        ),
-                      );
-                    },
-                    child: Text('See All'),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => RatingsScreen(),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: Text('See All'),
+                  // ),
                 ],
               ),
               SizedBox(height: 10),
               Column(
-                children: items.map((item) {
+                children: reviewList.map((item) {
                   return _buildCard(
                     context,
-                    name: item['name']!,
-                    rate: item['rate']!,
-                    content: item['content']!,
+                    name: item.userId,
+                    rate: item.rating,
+                    content: item.content,
                   );
                 }).toList(),
               ),

@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
 
   final bool successfulRegistration;
   final String successMessage;
-  // final void Function(BaseAppUser) goToHome;
-  final void Function() goToHome;
+  final void Function(BaseAppUser) goToHome;
+  // final void Function() goToHome;
   final void Function() goToRegister;
 
   @override
@@ -43,21 +43,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
       formKey.currentState!.save();
 
-      // final loginUser = await loginService.loginRequest(
-      //   context: context,
-      //   username: enteredUsername,
-      //   password: enteredPassword,
-      // );
+      final loginUser = await loginService.loginRequest(
+        context: context,
+        username: enteredUsername,
+        password: enteredPassword,
+      );
 
-      var loginUser = 'ress';
+      // var loginUser = 'ress';
         if (!mounted) return; 
       setState(() {
         isSending = false;
       });
-      // if (loginUser != null) {
-      if (loginUser != '') {
-        // widget.goToHome(loginUser);
-        widget.goToHome();
+      if (loginUser != null) {
+      // if (loginUser != '') {
+        widget.goToHome(loginUser);
+        // widget.goToHome();
       } 
     }
   }

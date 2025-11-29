@@ -4,39 +4,39 @@ const uid = Uuid();
 
 class BaseAppFavorite {
   BaseAppFavorite({
-    required this.SK,
-    required this.userId,
     required this.movieId,
-    this.addedAt,
+    required this.SK,
+    required this.PK,
+    required this.userId,
   });  
 
   BaseAppFavorite.fromData({
-    required this.SK,
-    required this.userId,
     required this.movieId,
-    this.addedAt,
+    required this.SK,
+    required this.PK,
+    required this.userId,
   });
 
-  final String SK;
-  final String userId;
   final String movieId;
-  final String? addedAt;
+  final String SK;
+  final String PK;
+  final String userId;
 
   Map<String, dynamic> toJson() {
     return {
-      'SK': SK,
-      'userId': userId,
       'movieId': movieId,
-      'addedAt': addedAt,
+      'SK': SK,
+      'PK': PK,
+      'userId': userId,
     };
   }
 
   factory BaseAppFavorite.fromJson(Map<String, dynamic> json) {
     return BaseAppFavorite.fromData(
-      SK: json['SK'] ?? '',
-      userId: json['userId'] ?? '',
       movieId: json['movieId'] ?? '',
-      addedAt: json['addedAt'] ?? '',
+      SK: json['SK'] ?? '',
+      PK: json['PK'] ?? '',
+      userId: json['userId'] ?? '',
     );
   }
 }

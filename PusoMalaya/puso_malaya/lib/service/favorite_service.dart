@@ -16,13 +16,21 @@ class FavoriteService {
   }) async {
     final uri = Uri.https(
       apiUrl,
-      '$stage/favorites',
+      '$stage/favorites/view_favorites',
       {
         'userId': userId.trim(),
       },
     );
 
-    final response = await http.get(uri);
+    final response = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'userId': userId.trim(),
+      }),
+    );
 
     if (!context.mounted) {
       return null;
@@ -31,6 +39,7 @@ class FavoriteService {
     final Map<String, dynamic>? responseBody = jsonDecode(
       response.body,
     );
+    final List<Map<String, dynamic>> jsonList = json.decode(response.body);
 
     if (response.statusCode >= 400) {
       showDialog(
@@ -62,9 +71,7 @@ class FavoriteService {
       return null;
     }
 
-    final Map<String, dynamic> jsonList = json.decode(response.body);
-    final List<dynamic> moviesJson = jsonList["items"];
 
-    return moviesJson.map((item) => BaseAppFavorite.fromJson(item)).toList();
+    return jsonList.map((item) => BaseAppFavorite.fromJson(item)).toList();
   }
 }

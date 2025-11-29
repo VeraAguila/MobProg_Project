@@ -12,16 +12,16 @@ class NavRoot extends StatefulWidget {
     super.key,
     required this.goToHome,
     required this.goToRegister,
-    // required this.currentUser,
+    required this.currentUser,
     required this.logout,
   });
   
   final bool successfulRegistration;
   final String successMessage;
-  // final void Function(BaseAppUser) goToHome;
-  final void Function() goToHome;
+  final void Function(BaseAppUser) goToHome;
+  // final void Function() goToHome;
   final void Function() goToRegister;
-  // final BaseAppUser currentUser;
+  final BaseAppUser currentUser;
   final void Function() logout;
 
   @override
@@ -38,7 +38,7 @@ class _NavRootState extends State<NavRoot> {
     SearchScreen(),
     FavoriteScreen(),
     ProfileScreen(
-      // currentUser: widget.currentUser,
+      currentUser: widget.currentUser,
       logout: widget.logout,
     ),
   ];

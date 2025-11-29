@@ -4,8 +4,8 @@ import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-var apiUrl = 'h2qfixb5w7.execute-api.ap-southeast-2.amazonaws.com';
-var stage = '/prod';
+var apiUrl = 'ccfh9odail.execute-api.ap-southeast-2.amazonaws.com';
+var stage = '/dev';
 
 class ProfileService {
   Future<BaseAppUser?> loginRequest({

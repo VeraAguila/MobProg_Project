@@ -3,22 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:puso_malaya/model/base_app_review.dart';
 
-var apiUrl = '17bckriqx0.execute-api.ap-southeast-2.amazonaws.com';
-var stage = '/prod';
-var systemId = 'BASE_APP';
+var apiUrl = 'ccfh9odail.execute-api.ap-southeast-2.amazonaws.com';
+var stage = '/dev';
 
 class ReviewService {
   Future<List<BaseAppReview>?> getReview({
     required BuildContext context,
+    required String userId,
   }) async {
-    final url = Uri.https(apiUrl, '$stage/reviews');
+    final url = Uri.https(apiUrl, '$stage/reviews/view_reviews');
 
-    final response = await http.get(
+    final response = await http.post(
       url,
       headers: {
         "Content-Type": "application/json",
-        "system-id": systemId,
       },
+      body: jsonEncode({
+        'movieId': userId,
+      }),
     );
 
     if (!context.mounted) {

@@ -11,12 +11,12 @@ import 'package:puso_malaya/widgets/card_favorites.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
     super.key,
-    //required this.currentUser,
+    required this.currentUser,
     required this.logout,
   });
 
   final void Function() logout;
-  //final BaseAppUser currentUser;
+  final BaseAppUser currentUser;
 
   @override
   State<StatefulWidget> createState() {
@@ -62,6 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
 
     var tempReview = await reviewScreen.getReview(
+      userId: widget.currentUser.SK,
       context: context,
     );
 
@@ -350,16 +351,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ).textTheme.titleMedium!.copyWith(),
                     ),
                     Spacer(),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'See all >>',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
+                    // TextButton(
+                    //   onPressed: () {},
+                    //   child: Text(
+                    //     'See all >>',
+                    //     style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    //       color: Colors.grey,
+                    //       fontSize: 12,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
 

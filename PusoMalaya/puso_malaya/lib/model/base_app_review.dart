@@ -5,7 +5,7 @@ const uid = Uuid();
 class BaseAppReview {
   BaseAppReview({
     required this.SK,
-    required this.useId,
+    required this.userId,
     required this.movieId,
     required this.content,
     required this.rating,
@@ -16,7 +16,7 @@ class BaseAppReview {
 
   BaseAppReview.fromData({
     required this.SK,
-    required this.useId,
+    required this.userId,
     required this.movieId,
     required this.content,
     required this.rating,
@@ -26,7 +26,7 @@ class BaseAppReview {
   });
 
   final String SK;
-  final String useId;
+  final String userId;
   final String movieId;
   final String content;
   final String rating;
@@ -37,7 +37,7 @@ class BaseAppReview {
   Map<String, dynamic> toJson() {
     return {
       'SK': SK,
-      'useId': useId,
+      'useId': userId,
       'movieId': movieId,
       'content': content,
       'rating': rating,
@@ -50,7 +50,7 @@ class BaseAppReview {
   factory BaseAppReview.fromJson(Map<String, dynamic> json) {
     return BaseAppReview.fromData(
       SK: json['SK'] ?? '',
-      useId: json['useId'] ?? '',
+      userId: json['userId'] ?? '',
       movieId: json['movieId'] ?? '',
       content: json['content'] ?? '',
       rating: json['rating'] ?? '',

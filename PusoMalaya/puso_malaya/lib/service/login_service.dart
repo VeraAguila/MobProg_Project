@@ -16,23 +16,35 @@ class LoginService {
     final uri = Uri.https(
       apiUrl,
       '$stage/users/login',
-      {
-        'username': username.trim(),
-        'password': password.trim(),
-      },
+      // {
+      //   'username': username.trim(),
+      //   'password': password.trim(),
+      // },
     );
 
-    final response = await http.post(uri);
+    final response = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'username': username.trim(),
+        'password': password.trim(),
+      }),
+    );
 
     if (!context.mounted) {
       return null;
     }
-
-    final Map<String, dynamic>? responseBody = jsonDecode(
-      response.body,  
+    List<dynamic> data = jsonDecode(
+      response.body,
     );
+    Map<String, dynamic> user = data[0];
+    // final Map<String, dynamic>? responseBody = jsonDecode(
+    //   response.body,
+    // );
     print('RESPONSE BODY: ${response.body}');
-    if (response.statusCode >= 400 || responseBody!['data'] == null) {
+    if (response.statusCode >= 400) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -43,9 +55,10 @@ class LoginService {
             ),
           ),
           content: Text(
-            responseBody != null
-                ? responseBody['message']
-                : 'Internal Server Error',
+            //responseBody != null
+            //  ? responseBody['message']
+            //: 'Internal Server Error',
+            'error',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           actions: [
@@ -62,7 +75,7 @@ class LoginService {
       return null;
     }
 
-    BaseAppUser loginUser = BaseAppUser.fromJson(responseBody['data']);
+    BaseAppUser loginUser = BaseAppUser.fromJson(user);
     return loginUser;
   }
 
