@@ -298,25 +298,26 @@ Widget _buildCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    'Review by ${name}',
+                    style: Theme.of(context).textTheme.titleSmall,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 10),
                   Row(
                     children: [
-                      Text(
-                        'Review by ',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: Colors.grey,
-                        ),
+                      Icon(
+                        Icons.star,
+                        color: Colors.yellow,
                       ),
                       Text(
-                        name,
-                        style: Theme.of(context).textTheme.titleSmall,
+                        rate,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
-                  Text(
-                    rate,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 10),
                   Text(
                     content,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
