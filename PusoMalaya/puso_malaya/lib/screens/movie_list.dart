@@ -17,7 +17,10 @@ class MovieList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+  final List<BaseAppMovie> rankedMovies = List.from(inventoryList)
+    ..sort((a, b) => b.averageRating!.compareTo(a.averageRating!));   
+    
+     return SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
@@ -179,7 +182,7 @@ class MovieList extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
-                    children: inventoryList.map((item) {
+                    children: rankedMovies.map((item) {
                       return buildCardRanked(
                         item: item,
                         currentUser: currentUser,

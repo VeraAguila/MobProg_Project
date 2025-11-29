@@ -43,8 +43,9 @@ class _AddRatingScreenState extends State<AddRatingScreen> {
       // var newUser = 'ewa';
       setState(() {
         isSending = false;
+        Navigator.pop(context);
       });
-      
+
     }
   }
   @override

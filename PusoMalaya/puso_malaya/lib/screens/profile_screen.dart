@@ -309,7 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Morgan",
+                                  "2h 8m 17s",
                                   style:
                                       Theme.of(
                                         context,
@@ -356,38 +356,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      // children: favoriteList.map((item) {
-                      //   return buildCardFavorites(
-                      //     item: item,
-                      //   );
-                      // }).toList(),
-                      children: [Text('data')],
+                      children: favoriteList.map((item) {
+                        return buildCardFavorites(
+                          item: item,
+                          currentUser: widget.currentUser,
+                        );
+                      }).toList(),
+                      // children: [Text('data')],
                     ),
                   ),
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Recent Reviews',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleMedium!.copyWith(),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       'Recent Reviews',
+                //       style: Theme.of(
+                //         context,
+                //       ).textTheme.titleMedium!.copyWith(),
+                //     ),
+                //   ],
+                // ),
 
-                Column(
-                  children: items.map((item) {
-                    return _buildCardReview(
-                      context,
-                      title: item['title']!,
-                      imagepath: item['imagepath']!,
-                      rate: item['rate']!,
-                    );
-                  }).toList(),
-                ),
+                // Column(
+                //   children: items.map((item) {
+                //     return _buildCardReview(
+                //       context,
+                //       title: item['title']!,
+                //       imagepath: item['imagepath']!,
+                //       rate: item['rate']!,
+                //     );
+                //   }).toList(),
+                // ),
               ],
             ),
           ),
@@ -397,95 +398,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-Widget _buildCardReview(
-  BuildContext context, {
-  required String title,
-  required String imagepath,
-  required String rate,
-}) {
-  return Card(
-    elevation: 3,
-    color: Color(0x00FFFFFF).withOpacity(0.2),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
-    clipBehavior: Clip.antiAlias,
-    child: InkWell(
-      onTap: () {
-        // ScaffoldMessenger.of(
-        //   context,
-        // ).showSnackBar(SnackBar(content: Text('Tapped')));
-        // //penItemModal();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ReviewScreen(),
-          ),
-        );
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 5,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 10.0,
-            ),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Review by ',
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            color: Colors.grey,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          'Morgan',
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(
-                      rate,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'dsa',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                Spacer(),
-                ClipRRect(
-                  borderRadius: BorderRadiusGeometry.circular(12),
-                  child: Image.asset(
-                    imagepath,
-                    height: 110,
-                    width: 70,
-                    fit: BoxFit.cover,
-                  ),
-                ),  
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+// Widget _buildCardReview(
+//   BuildContext context, {
+//   required String title,
+//   required String imagepath,
+//   required String rate,
+// }) {
+//   return Card(
+//     elevation: 3,
+//     color: Color(0x00FFFFFF).withOpacity(0.2),
+//     shape: RoundedRectangleBorder(
+//       borderRadius: BorderRadius.circular(12),
+//     ),
+//     clipBehavior: Clip.antiAlias,
+//     child: InkWell(
+//       onTap: () {
+//         // ScaffoldMessenger.of(
+//         //   context,
+//         // ).showSnackBar(SnackBar(content: Text('Tapped')));
+//         // //penItemModal();
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) => ReviewScreen(),
+//           ),
+//         );
+//       },
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         spacing: 5,
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.symmetric(
+//               horizontal: 16.0,
+//               vertical: 10.0,
+//             ),
+//             child: Row(
+//               children: [
+//                 Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Row(
+//                       children: [
+//                         Text(
+//                           'Review by ',
+//                           style: Theme.of(context).textTheme.titleSmall!.copyWith(
+//                             color: Colors.grey,
+//                             fontSize: 12,
+//                           ),
+//                         ),
+//                         Text(
+//                           'Morgan',
+//                           style: Theme.of(context).textTheme.titleSmall!.copyWith(
+//                             fontSize: 12,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                     Text(
+//                       title,
+//                       style: Theme.of(context).textTheme.titleMedium,
+//                     ),
+//                     Text(
+//                       rate,
+//                       style: Theme.of(context).textTheme.titleMedium,
+//                     ),
+//                     SizedBox(height: 5),
+//                     Text(
+//                       'dsa',
+//                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+//                         color: Colors.white,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//                 Spacer(),
+//                 ClipRRect(
+//                   borderRadius: BorderRadiusGeometry.circular(12),
+//                   child: Image.asset(
+//                     imagepath,
+//                     height: 110,
+//                     width: 70,
+//                     fit: BoxFit.cover,
+//                   ),
+//                 ),  
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }

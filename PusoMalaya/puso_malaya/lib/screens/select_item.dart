@@ -203,7 +203,13 @@ class _SelectItemState extends State<SelectItem> {
                             currentUser: widget.currentUser,
                           ),
                         ),
-                      );
+                      ).then((result) {
+                        if (result == true) {
+                          setState(() {
+                            loadReviews();
+                          });
+                        }
+                      });
                     },
                     icon: Icon(Icons.add),
                     label: Text('Rate'),

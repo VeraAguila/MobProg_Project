@@ -21,6 +21,7 @@ class buildCardRanked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     void openItemModal() {
       showModalBottomSheet(
         context: context,
