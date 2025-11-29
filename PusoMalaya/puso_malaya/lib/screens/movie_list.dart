@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:puso_malaya/model/base_app_movie.dart';
+import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:puso_malaya/widgets/card.dart';
 import 'package:puso_malaya/widgets/card_ranked.dart';
 import 'package:puso_malaya/widgets/card_recently.dart';
@@ -8,9 +9,11 @@ class MovieList extends StatelessWidget {
   const MovieList({
     super.key,
     required this.inventoryList,
+    required this.currentUser,
   });
 
   final List<BaseAppMovie> inventoryList;
+  final BaseAppUser currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class MovieList extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Vera',
+                    currentUser.username,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -101,6 +104,7 @@ class MovieList extends StatelessWidget {
                     children: inventoryList.map((item) {
                       return buildCard(
                         item: item,
+                        currentUser: currentUser,
                       );
                     }).toList(),
                   ),
@@ -139,6 +143,7 @@ class MovieList extends StatelessWidget {
                     children: inventoryList.map((item) {
                       return buildCardRecently(
                         item: item,
+                        currentUser: currentUser,
                       );
                     }).toList(),
                   ),
@@ -177,6 +182,7 @@ class MovieList extends StatelessWidget {
                     children: inventoryList.map((item) {
                       return buildCardRanked(
                         item: item,
+                        currentUser: currentUser,
                       );
                     }).toList(),
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puso_malaya/model/base_app_movie.dart';
+import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:puso_malaya/screens/movie_list.dart';
 import 'package:puso_malaya/service/movie_service.dart';
 import 'package:puso_malaya/widgets/card.dart';
@@ -8,7 +9,12 @@ import 'package:puso_malaya/widgets/card_ranked.dart';
 import 'package:puso_malaya/widgets/card_recently.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    required this.currentUser,
+  });
+
+  final BaseAppUser currentUser;
 
   @override
   State<StatefulWidget> createState() {
@@ -81,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (movieList.isNotEmpty) {
       mainContent = MovieList(
         inventoryList: movieList,
+        currentUser: widget.currentUser,
       );
     }
 

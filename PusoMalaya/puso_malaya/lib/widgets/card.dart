@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:puso_malaya/model/base_app_movie.dart';
+import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:puso_malaya/screens/select_item.dart';
 
 class buildCard extends StatelessWidget {
   // final String title;
   // final String imageWidget;
+  final BaseAppUser currentUser;
   final BaseAppMovie item;
 
   const buildCard({
     // required this.title,
     // required this.imageWidget,
     required this.item,
+    required this.currentUser,
   });
 
   @override
@@ -18,7 +21,7 @@ class buildCard extends StatelessWidget {
     void openItemModal() {
       showModalBottomSheet(
         context: context,
-        builder: (ctx) => SelectItem(item: item),
+        builder: (ctx) => SelectItem(item: item, currentUser: currentUser,),
       );
     }
 
@@ -27,7 +30,7 @@ class buildCard extends StatelessWidget {
         // openItemModal();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SelectItem(item: item))
+          MaterialPageRoute(builder: (context) => SelectItem(item: item, currentUser: currentUser))
         );
       },
       child: Container(

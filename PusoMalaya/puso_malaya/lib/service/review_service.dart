@@ -61,8 +61,78 @@ class ReviewService {
       return null;
     }
 
-    final List<dynamic> jsonList = json.decode(response.body);
+    final Map<String, dynamic> decoded = json.decode(response.body);
+
+    final List<dynamic> jsonList = decoded['reviews'] ?? [];
 
     return jsonList.map((item) => BaseAppReview.fromJson(item)).toList();
+  }
+
+  Future<String?> addreview({
+    required BuildContext context,
+    required String userId,
+    required String movieId,
+    required String content,
+    required String rating,
+  }) async {
+    final uri = Uri.https(
+      apiUrl,
+      '$stage/reviews',
+    );
+
+    BaseAppReview newReview = BaseAppReview(
+      userId: userId,
+      movieId: movieId,
+      content: content,
+      rating: rating,
+    );
+
+    final response = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode(newReview.toJson()),
+    );
+
+    if (!context.mounted) {
+      return null;
+    }
+
+    final Map<String, dynamic>? responseBody = jsonDecode(
+      response.body,
+    );
+
+    if (response.statusCode >= 400) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(
+            'Registration failed.',
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            responseBody != null
+                ? responseBody['message']
+                : 'Internal Server Error',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+
+      return null;
+    }
+
+    return responseBody!['message'];
   }
 }

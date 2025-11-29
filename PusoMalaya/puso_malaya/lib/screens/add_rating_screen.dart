@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:puso_malaya/model/base_app_movie.dart';
+import 'package:puso_malaya/model/base_app_user.dart';
+import 'package:puso_malaya/service/review_service.dart';
 
 class AddRatingScreen extends StatefulWidget {
-  const AddRatingScreen({super.key});
+  const AddRatingScreen({super.key, required this.currentUser,required this.item});
+
+  final BaseAppMovie item;
+  final BaseAppUser currentUser;
 
   @override
   State<StatefulWidget> createState() {
@@ -10,6 +16,36 @@ class AddRatingScreen extends StatefulWidget {
 }
 
 class _AddRatingScreenState extends State<AddRatingScreen> {
+  final rateService = ReviewService();
+  final formKey = GlobalKey<FormState>();
+  bool _isPasswordVisible = false;
+
+  var enteredRating = '';
+  var enteredreview = '';
+  var isSending = false;
+
+  void addReview() async {
+    if (formKey.currentState!.validate()) {
+      setState(() {
+        isSending = true;
+      });
+
+      formKey.currentState!.save();
+
+      final newReview = await rateService.addreview(
+        context: context,
+        userId: widget.currentUser.SK,
+        movieId: widget.item.SK,
+        rating: enteredRating,
+        content: enteredreview,
+      );
+
+      // var newUser = 'ewa';
+      setState(() {
+        isSending = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +68,23 @@ class _AddRatingScreenState extends State<AddRatingScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(width: 10),
-                  Image.asset(
-                    'assets/images/movie1.png',
+                  Image.network(
+                    widget.item.s3Image!,
                     height: 172,
                     fit: BoxFit.contain,
                   ),
                   SizedBox(width: 30),
-                  Text(
-                    "Mango",
-                    style: Theme.of(context).textTheme.titleLarge,
+                  SizedBox(
+                    width: 210,
+                    child: Text(
+                      widget.item.title,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontSize: 22
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                  SizedBox(width: 10),
                 ],
               ),
               SizedBox(height: 20),
@@ -77,6 +119,15 @@ class _AddRatingScreenState extends State<AddRatingScreen> {
                         hintText: "Your Rating",
                         border: InputBorder.none,
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter your rating';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        enteredRating = value!;
+                      },
                     ),
                   ),
                   SizedBox(width: 60),
@@ -108,6 +159,15 @@ class _AddRatingScreenState extends State<AddRatingScreen> {
                     hintText: "Write down your review...",
                     border: InputBorder.none,
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter your review';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    enteredreview = value!;
+                  },
                 ),
               ),
               SizedBox(height: 20),
@@ -126,7 +186,7 @@ class _AddRatingScreenState extends State<AddRatingScreen> {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: addReview,
                     child: Text(
                       "Publish",
                       style: Theme.of(

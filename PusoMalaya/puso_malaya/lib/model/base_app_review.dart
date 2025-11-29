@@ -4,7 +4,6 @@ const uid = Uuid();
 
 class BaseAppReview {
   BaseAppReview({
-    required this.SK,
     required this.userId,
     required this.movieId,
     required this.content,
@@ -12,7 +11,7 @@ class BaseAppReview {
     this.likeCount,
     this.spoilerWarning,
     this.isEdited,
-  });  
+  }) : SK = 'U#${uid.v4()}';  
 
   BaseAppReview.fromData({
     required this.SK,
@@ -30,9 +29,9 @@ class BaseAppReview {
   final String movieId;
   final String content;
   final String rating;
-  final int? likeCount;
-  final String? spoilerWarning;
-  final String? isEdited;
+  final String? likeCount;
+  final bool? spoilerWarning;
+  final bool? isEdited;
 
   Map<String, dynamic> toJson() {
     return {

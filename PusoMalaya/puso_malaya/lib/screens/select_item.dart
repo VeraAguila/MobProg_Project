@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:puso_malaya/model/base_app_movie.dart';
 import 'package:puso_malaya/model/base_app_review.dart';
+import 'package:puso_malaya/model/base_app_user.dart';
 import 'package:puso_malaya/screens/add_rating_screen.dart';
 import 'package:puso_malaya/screens/ratings_screen.dart';
 import 'package:puso_malaya/screens/review_select.dart';
 import 'package:puso_malaya/service/review_service.dart';
 
 class SelectItem extends StatefulWidget {
-  const SelectItem({super.key, required this.item});
+  const SelectItem({super.key, required this.item, required this.currentUser});
 
   final BaseAppMovie item;
+  final BaseAppUser currentUser;
 
   @override
   State<StatefulWidget> createState() {
@@ -196,7 +198,10 @@ class _SelectItemState extends State<SelectItem> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AddRatingScreen(),
+                          builder: (context) => AddRatingScreen(
+                            item: widget.item,
+                            currentUser: widget.currentUser,
+                          ),
                         ),
                       );
                     },

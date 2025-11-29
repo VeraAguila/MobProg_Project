@@ -33,10 +33,11 @@ class FavoriteService {
       return null;
     }
 
-    final Map<String, dynamic>? responseBody = jsonDecode(
-      response.body,
-    );
+
     if (response.statusCode >= 400) {
+      final Map<String, dynamic>? responseBody = jsonDecode(
+        response.body,
+      );
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -67,7 +68,7 @@ class FavoriteService {
     }
     
     final List<dynamic> jsonList = json.decode(response.body);
-    final List<BaseAppMovie> movies = jsonList.map((item) => BaseAppMovie.fromJson(item as Map<String, dynamic>)).toList();
+    final List<BaseAppMovie> movies = jsonList.map((item) => BaseAppMovie.fromJson(item)).toList();
 
     return movies;
     // return jsonList.map((item) => BaseAppFavorite.fromJson(item)).toList();

@@ -34,7 +34,9 @@ class _NavRootState extends State<NavRoot> {
   int selectedIndex = 0;
 
   late final List<Widget> pages = [
-    HomeScreen(),
+    HomeScreen(
+      currentUser: widget.currentUser,
+    ),
     SearchScreen(),
     FavoriteScreen(),
     ProfileScreen(
